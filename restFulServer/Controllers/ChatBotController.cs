@@ -15,10 +15,10 @@ namespace restFulServer.Controllers
     {
         [HttpPost]
         [Route("conversations")]
-        public HttpResponseMessage PostProduct(HttpRequestMessage req)
+        public HttpResponseMessage PostConversations(HttpRequestMessage req)
         {
             var result = req.Content.ReadAsStringAsync().Result;
-            Debug.WriteLine("[chatbot/v1/api/conversations ChatBotController.PostProduct] ==============> " + result);
+            Debug.WriteLine("[chatbot/v1/api/conversations ChatBotController.PostConversations] ==============> " + result);
 
             if (result == null)
             {

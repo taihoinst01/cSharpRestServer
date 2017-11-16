@@ -18,7 +18,7 @@ namespace restFulServer.Controllers
         public HttpResponseMessage PostConversations(HttpRequestMessage req)
         {
             var result = req.Content.ReadAsStringAsync().Result;
-            Debug.WriteLine("[chatbot/v1/api/conversations ChatBotController.PostConversations] ==============> " + result);
+            //Debug.WriteLine("[chatbot/v1/api/conversations ChatBotController.PostConversations] ==============> " + result);
 
             var javaScriptSerializer = new System.Web.Script.Serialization.JavaScriptSerializer();
             try
@@ -28,7 +28,6 @@ namespace restFulServer.Controllers
                     Error error = new Error();
                     error.status = 400;
                     error.text = "request parameter is null";
-                    //var errorJavaScriptSerializer = new System.Web.Script.Serialization.JavaScriptSerializer();
                     string errorRes = javaScriptSerializer.Serialize(error);
                     return new HttpResponseMessage(HttpStatusCode.BadRequest)
                     {
@@ -49,7 +48,6 @@ namespace restFulServer.Controllers
                 item.text = json.conversations[0].message;
                 resObj.dialogs.Add(item);
 
-                //var javaScriptSerializer = new System.Web.Script.Serialization.JavaScriptSerializer();
                 string res = javaScriptSerializer.Serialize(resObj);
 
                 return new HttpResponseMessage(HttpStatusCode.OK)

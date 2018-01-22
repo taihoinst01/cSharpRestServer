@@ -8,6 +8,6 @@ namespace restFulServer.Models
     public class textDlg
     {
         public string type { get; set; }
-        public string text { get; set; }
+        public string text { get; set; } 
     }
 }

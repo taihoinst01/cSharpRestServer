@@ -92,7 +92,16 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\textDlg.cs" />
+    <Compile Include="Models\Button.cs" />
+    <Compile Include="Models\Error.cs" />
+    <Compile Include="Models\HeroCard.cs" />
+    <Compile Include="Models\ReqMessage.cs" />
+    <Compile Include="Models\ResCardDialog.cs" />
+    <Compile Include="Models\ResMediaDialog.cs" />
+    <Compile Include="Models\MediaDialog.cs" />
+    <Compile Include="Models\CardDialog.cs" />
+    <Compile Include="Models\TextDialog.cs" />
+    <Compile Include="Models\ResTextDialog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

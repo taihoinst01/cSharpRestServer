@@ -1,4 +1,5 @@
-﻿using restFulServer.Models;
+﻿using Newtonsoft.Json.Linq;
+using restFulServer.Models;
 
 using System;
 using System.Collections.Generic;
@@ -165,6 +166,94 @@ namespace restFulServer.Controllers
                     Content = new StringContent(javaScriptSerializer.Serialize(error), System.Text.Encoding.UTF8, "application/json")
                 };
             }
+        }
+
+        [HttpGet]
+        [Route("chatbot/v2/api")]
+        public HttpResponseMessage MsgToMeetingRoomJson(HttpRequestMessage req)
+        {
+            var hero1 = new JObject();
+            hero1.Add("bd_cl_cd", "H0001");
+            hero1.Add("bd_cl_nm", "동관");
+            hero1.Add("bd_fl_cd", "6");
+            hero1.Add("cnf_from_time", "1530");
+            hero1.Add("cnf_from_ymd", "20180317");
+            hero1.Add("cnf_to_time", "1629");
+            hero1.Add("cnf_to_ymd", "20180317");
+            hero1.Add("corm_cd", "M0011");
+            hero1.Add("corm_nm", "대회의실");
+            hero1.Add("odu_regn_cd", "1");
+            hero1.Add("odu_regn_nm", "본사");
+            hero1.Add("odu_sebu_cd", "1A");
+            hero1.Add("odu_sebu_nm", "양재");
+            hero1.Add("type", "herocard");
+
+            var hero2 = new JObject();
+            hero2.Add("bd_cl_cd", "H0001");
+            hero2.Add("bd_cl_nm", "동관");
+            hero2.Add("bd_fl_cd", "6");
+            hero2.Add("cnf_from_time", "1530");
+            hero2.Add("cnf_from_ymd", "20180317");
+            hero2.Add("cnf_to_time", "1629");
+            hero2.Add("cnf_to_ymd", "20180317");
+            hero2.Add("corm_cd", "M0012");
+            hero2.Add("corm_nm", "중회의실Ⅰ");
+            hero2.Add("odu_regn_cd", "1");
+            hero2.Add("odu_regn_nm", "본사");
+            hero2.Add("odu_sebu_cd", "1A");
+            hero2.Add("odu_sebu_nm", "양재");
+            hero2.Add("type", "herocard");
+
+            var hero3 = new JObject();
+            hero3.Add("bd_cl_cd", "H0001");
+            hero3.Add("bd_cl_nm", "동관");
+            hero3.Add("bd_fl_cd", "6");
+            hero3.Add("cnf_from_time", "1530");
+            hero3.Add("cnf_from_ymd", "20180317");
+            hero3.Add("cnf_to_time", "1629");
+            hero3.Add("cnf_to_ymd", "20180317");
+            hero3.Add("corm_cd", "M0013");
+            hero3.Add("corm_nm", "중회의실 Ⅱ");
+            hero3.Add("odu_regn_cd", "1");
+            hero3.Add("odu_regn_nm", "본사");
+            hero3.Add("odu_sebu_cd", "1A");
+            hero3.Add("odu_sebu_nm", "양재");
+            hero3.Add("type", "herocard");
+
+            var hero4 = new JObject();
+            hero4.Add("bd_cl_cd", "H0001");
+            hero4.Add("bd_cl_nm", "동관");
+            hero4.Add("bd_fl_cd", "6");
+            hero4.Add("cnf_from_time", "1530");
+            hero4.Add("cnf_from_ymd", "20180317");
+            hero4.Add("cnf_to_time", "1629");
+            hero4.Add("cnf_to_ymd", "20180317");
+            hero4.Add("corm_cd", "M0014");
+            hero4.Add("corm_nm", "중회의실 Ⅲ");
+            hero4.Add("odu_regn_cd", "1");
+            hero4.Add("odu_regn_nm", "본사");
+            hero4.Add("odu_sebu_cd", "1A");
+            hero4.Add("odu_sebu_nm", "양재");
+            hero4.Add("type", "herocard");
+
+
+            var resArr = new JArray();
+            resArr.Add(hero1);
+            resArr.Add(hero2);
+            resArr.Add(hero3);
+            resArr.Add(hero4);
+
+            var resJson = new JObject();
+            resJson.Add("conversationId", "123456789");
+            resJson.Add("dialogCount", "1");
+            resJson.Add("status", "200");
+            resJson.Add("dialogs", resArr);
+
+            
+            return new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new StringContent(resJson.ToString(), System.Text.Encoding.UTF8, "application/json")
+            };
         }
     }
 }

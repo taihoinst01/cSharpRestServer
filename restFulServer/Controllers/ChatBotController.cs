@@ -13,6 +13,115 @@ namespace restFulServer.Controllers
 {
     public class ChatBotController : ApiController
     {
+
+        [HttpPost]
+        [Route("meetingroom/v1/api")]
+        public HttpResponseMessage TestMeetingRoomApi(HttpRequestMessage req)
+        {
+            const string AUTHKEY = "83ECD4D6D7C53AD5B8552209FB4E24BE";
+            const string TEXTDLG = "텍스트";
+            const string CARDDLG = "캐러절";
+            const string MEDIADLG = "미디어";
+
+            var result = req.Content.ReadAsStringAsync().Result;
+            var javaScriptSerializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+
+            Debug.WriteLine("[meetingroom/v1/api : ChatBotController.MsgToDlgJson] ==============> " + result);
+
+            string res = "";
+            try
+            {
+                if (result != null && result != "")
+                {
+                    var hero1 = new JObject();
+                    hero1.Add("bd_cl_cd", "H0001");
+                    hero1.Add("bd_cl_nm", "동관");
+                    hero1.Add("bd_fl_cd", "5");
+                    hero1.Add("cnf_from_time", "1530");
+                    hero1.Add("cnf_from_ymd", "20180317");
+                    hero1.Add("cnf_to_time", "1629");
+                    hero1.Add("cnf_to_ymd", "20180317");
+                    hero1.Add("corm_cd", "M0011");
+                    hero1.Add("corm_nm", "대회의실");
+                    hero1.Add("odu_regn_cd", "1");
+                    hero1.Add("odu_regn_nm", "본사");
+                    hero1.Add("odu_sebu_cd", "1A");
+                    hero1.Add("odu_sebu_nm", "양재");
+                    hero1.Add("type", "herocard");
+
+                    var hero2 = new JObject();
+                    hero2.Add("bd_cl_cd", "H0001");
+                    hero2.Add("bd_cl_nm", "동관");
+                    hero2.Add("bd_fl_cd", "7");
+                    hero2.Add("cnf_from_time", "1530");
+                    hero2.Add("cnf_from_ymd", "20180317");
+                    hero2.Add("cnf_to_time", "1629");
+                    hero2.Add("cnf_to_ymd", "20180317");
+                    hero2.Add("corm_cd", "M0012");
+                    hero2.Add("corm_nm", "중회의실Ⅰ");
+                    hero2.Add("odu_regn_cd", "1");
+                    hero2.Add("odu_regn_nm", "본사");
+                    hero2.Add("odu_sebu_cd", "1A");
+                    hero2.Add("odu_sebu_nm", "양재");
+                    hero2.Add("type", "herocard");
+
+                    var hero3 = new JObject();
+                    hero3.Add("bd_cl_cd", "H0001");
+                    hero3.Add("bd_cl_nm", "동관");
+                    hero3.Add("bd_fl_cd", "10");
+                    hero3.Add("cnf_from_time", "1530");
+                    hero3.Add("cnf_from_ymd", "20180317");
+                    hero3.Add("cnf_to_time", "1629");
+                    hero3.Add("cnf_to_ymd", "20180317");
+                    hero3.Add("corm_cd", "M0013");
+                    hero3.Add("corm_nm", "중회의실 Ⅱ");
+                    hero3.Add("odu_regn_cd", "1");
+                    hero3.Add("odu_regn_nm", "본사");
+                    hero3.Add("odu_sebu_cd", "1A");
+                    hero3.Add("odu_sebu_nm", "양재");
+                    hero3.Add("type", "herocard");
+
+
+
+                    var resArr = new JArray();
+                    resArr.Add(hero1);
+                    resArr.Add(hero2);
+                    resArr.Add(hero3);
+
+                    var resJson = new JObject();
+                    resJson.Add("conversationId", "123456789");
+                    resJson.Add("dialogCount", "1");
+                    resJson.Add("status", "200");
+                    resJson.Add("dialogs", resArr);
+
+
+                    return new HttpResponseMessage(HttpStatusCode.OK)
+                    {
+                        Content = new StringContent(resJson.ToString(), System.Text.Encoding.UTF8, "application/json")
+                    };
+                }
+                else // request 파라미터 없는 경우
+                {
+                    throw new Exception("Bad Request : request parameter is empty");
+                }
+            }
+            catch (Exception e)
+            {
+                //Debug.WriteLine(e.Message);
+                //Debug.WriteLine(e.StackTrace);
+                Error error = new Error();
+                error.message = e.Message;
+                error.status = "999";
+                return new HttpResponseMessage(HttpStatusCode.OK)
+                {
+                    Content = new StringContent(javaScriptSerializer.Serialize(error), System.Text.Encoding.UTF8, "application/json")
+                };
+            }
+        }
+
+
+
+
         [HttpPost]
         [Route("chatbot/v1/api")]
         public HttpResponseMessage MsgToDlgJson(HttpRequestMessage req)
